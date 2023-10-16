@@ -1,0 +1,101 @@
+marknadsurval_cupdate_insert:
+  sql: |
+    insert into marknadsurval_cupdate(
+    id
+    ,pid
+    ,first_name
+    ,given_name
+    ,surname
+    ,address
+    ,zip
+    ,city
+    ,moved_at
+    ,status
+    ,created_by
+    ) values (
+    ?
+    ,?
+    ,?
+    ,?
+    ,?
+    ,?
+    ,?
+    ,?
+    ,?
+    ,?
+    ,'[user_id]'
+    );
+  params:
+    -
+      type: varchar(50)
+      value: rs:id
+    -
+      type: varchar(255)
+      value: rs:pid
+    -
+      type: varchar(255)
+      value: rs:first_name
+    -
+      type: varchar(255)
+      value: rs:given_name
+    -
+      type: varchar(255)
+      value: rs:surname
+    -
+      type: varchar(255)
+      value: rs:address
+    -
+      type: varchar(255)
+      value: rs:zip
+    -
+      type: varchar(255)
+      value: rs:city
+    -
+      type: varchar(255)
+      value: rs:moved_at
+    -
+      type: varchar(255)
+      value: rs:status
+db_marknadsurval_cupdate_select_by_pid:
+  sql: |
+    select
+    id
+    ,pid
+    ,first_name
+    ,given_name
+    ,surname
+    ,address
+    ,zip
+    ,city
+    ,moved_at
+    ,status
+    ,created_at
+    ,updated_at
+    ,created_by
+    ,updated_by
+    ,(datediff(now(),created_at)) as created_at_days
+    from marknadsurval_cupdate
+    where pid=? 
+    and status='ok'
+    order by created_at desc
+    limit 1
+  params:
+    -
+      type: varchar(255)
+      value: rs:pid
+  select:
+    - id
+    - pid
+    - first_name
+    - given_name
+    - surname
+    - address
+    - zip
+    - city
+    - moved_at
+    - status
+    - created_at
+    - updated_at
+    - created_by
+    - updated_by
+    - created_at_days

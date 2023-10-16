@@ -1,0 +1,25 @@
+version: 1.0.0
+history:
+  1.0.0:
+    date: '2023-10-16'
+    title: 'First version'
+    description: 'First version. Manifest created.'
+plugin:
+  -
+    name: marknadsurval/api
+    version: 1.0.0
+  -
+    name: validate/pid
+    version: 1.7.0
+sys:
+  -
+    name: mercury
+    version:
+      - 2.99.3
+php:
+  version:
+    - 8.2.0
+author: null
+links: null
+description: ''
+third_part_software: null
