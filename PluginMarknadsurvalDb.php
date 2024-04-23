@@ -29,6 +29,16 @@ class PluginMarknadsurvalDb{
      * check
      */
     $check = $this->db_marknadsurval_cupdate_select_by_pid(wfUser::getSession()->get('plugin/banksignering/ui/pid'));
+    /**
+     * log
+     */
+    $log = new PluginWfYml(wfGlobals::getAppDir().'/../buto_data/theme/[theme]/plugin/marknadsurval/db/'.date('Y-m-d').'.yml');
+    $log->set('log/', array('time' => date('Y-m-d H:i:s'), 'pid' => wfUser::getSession()->get('plugin/banksignering/ui/pid'), 'result' => $check->get()));
+    $log->set('count', sizeof($log->get('log')));
+    $log->save();
+    /**
+     * 
+     */
     if($check->get('id') && $check->get('created_at_days')<180){
       return null;
     }
@@ -61,5 +71,31 @@ class PluginMarknadsurvalDb{
      * 
      */
     return $rs;
+  }
+  public function set_user(){
+    /**
+     * Run this method via theme settings.
+     */
+    wfPlugin::includeonce('marknadsurval/db');
+    $marknadsurval_db = new PluginMarknadsurvalDb();
+    if($marknadsurval_db->has_settings()){
+      $marknadsurval_data = $marknadsurval_db->db_marknadsurval_cupdate_select_by_pid(wfUser::getSession()->get('plugin/banksignering/ui/pid'));
+      if($marknadsurval_data->get('id') && $marknadsurval_data->get('pid')){
+        $data = new PluginWfArray();
+        $data->set('id', $marknadsurval_data->get('id'));
+        $data->set('postalcode', $marknadsurval_data->get('zip'));
+        $data->set('city', $marknadsurval_data->get('city'));
+        $data->set('first_name', $marknadsurval_data->get('given_name'));
+        $data->set('last_name', $marknadsurval_data->get('surname'));
+        $data->set('address', $marknadsurval_data->get('address'));
+        $data->set('born', $marknadsurval_data->get('validate_born'));
+        $data->set('sex', $marknadsurval_data->get('validate_sex'));
+        //$this->db_memb_account_update_geo($data->get());
+        wfUser::setSession('plugin/marknadsurval/db/user', $data->get());
+      }else{
+        wfUser::setSession('plugin/marknadsurval/db/user/pid', wfUser::getSession()->get('plugin/banksignering/ui/pid'));
+      }
+    }
+    return null;
   }
 }
