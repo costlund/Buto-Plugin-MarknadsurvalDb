@@ -77,7 +77,6 @@ db_marknadsurval_cupdate_select_by_pid:
     from marknadsurval_cupdate
     where pid=? 
     and status='ok'
-    and not isnull(zip)
     order by created_at desc
     limit 1
   params:

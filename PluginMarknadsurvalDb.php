@@ -60,6 +60,12 @@ class PluginMarknadsurvalDb{
     $this->mysql->execute($sql->get());
     $rs = $this->mysql->getOne(array('sql' => $sql->get()));
     /**
+     * pid
+     */
+    if(!$rs->get('pid')){
+      $rs->set('pid', $pid);
+    }
+    /**
      * 
      */
     wfPlugin::includeonce('validate/pid');
@@ -80,22 +86,18 @@ class PluginMarknadsurvalDb{
     $marknadsurval_db = new PluginMarknadsurvalDb();
     if($marknadsurval_db->has_settings()){
       $marknadsurval_data = $marknadsurval_db->db_marknadsurval_cupdate_select_by_pid(wfUser::getSession()->get('plugin/banksignering/ui/pid'));
-      if($marknadsurval_data->get('id') && $marknadsurval_data->get('pid')){
-        $data = new PluginWfArray();
-        $data->set('id', $marknadsurval_data->get('id'));
-        $data->set('postalcode', $marknadsurval_data->get('zip'));
-        $data->set('city', $marknadsurval_data->get('city'));
-        $data->set('first_name', $marknadsurval_data->get('given_name'));
-        $data->set('last_name', $marknadsurval_data->get('surname'));
-        $data->set('address', $marknadsurval_data->get('address'));
-        $data->set('born', $marknadsurval_data->get('validate_born'));
-        $data->set('sex', $marknadsurval_data->get('validate_sex'));
-        //$this->db_memb_account_update_geo($data->get());
-        wfUser::setSession('plugin/marknadsurval/db/user', $data->get());
-      }else{
-        wfUser::setSession('plugin/marknadsurval/db/user/pid', wfUser::getSession()->get('plugin/banksignering/ui/pid'));
-      }
-    }
+      $data = new PluginWfArray();
+      $data->set('id', $marknadsurval_data->get('id'));
+      $data->set('pid', $marknadsurval_data->get('pid'));
+      $data->set('postalcode', $marknadsurval_data->get('zip'));
+      $data->set('city', $marknadsurval_data->get('city'));
+      $data->set('first_name', $marknadsurval_data->get('given_name'));
+      $data->set('last_name', $marknadsurval_data->get('surname'));
+      $data->set('address', $marknadsurval_data->get('address'));
+      $data->set('born', $marknadsurval_data->get('validate_born'));
+      $data->set('sex', $marknadsurval_data->get('validate_sex'));
+      wfUser::setSession('plugin/marknadsurval/db/user', $data->get());
+   }
     return null;
   }
 }
