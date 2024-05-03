@@ -24,6 +24,8 @@ tables:
         type: varchar(255)
       status:
         type: varchar(255)
+      zip_updated_at:
+        type: timestamp
 extra:
   _description: 'Extra field to add to each table if not exist in schema.'
   field:
