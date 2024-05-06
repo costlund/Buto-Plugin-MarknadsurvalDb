@@ -4,6 +4,7 @@ class PluginMarknadsurvalDb{
   private $mysql = null;
   function __construct() {
     $this->settings = wfPlugin::getPluginSettings('marknadsurval/db', true);
+    wfPlugin::includeonce('wf/mysql');
     $this->mysql =new PluginWfMysql();
   }
   public function has_settings(){
