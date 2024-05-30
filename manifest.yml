@@ -1,5 +1,9 @@
-version: 1.3.0
+version: 1.4.0
 history:
+  1.4.0:
+    date: '2024-05-29'
+    title: 'Session'
+    description: 'Add created_at, created_at_days to session.'
   1.3.0:
     date: '2024-05-03'
     title: 'Zip'

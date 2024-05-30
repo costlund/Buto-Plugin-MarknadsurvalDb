@@ -97,6 +97,8 @@ class PluginMarknadsurvalDb{
       $data->set('address', $marknadsurval_data->get('address'));
       $data->set('born', $marknadsurval_data->get('validate_born'));
       $data->set('sex', $marknadsurval_data->get('validate_sex'));
+      $data->set('created_at', $marknadsurval_data->get('created_at'));
+      $data->set('created_at_days', $marknadsurval_data->get('created_at_days'));
       wfUser::setSession('plugin/marknadsurval/db/user', $data->get());
    }
     return null;
