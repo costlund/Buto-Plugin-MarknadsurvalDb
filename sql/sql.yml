@@ -12,6 +12,7 @@ marknadsurval_cupdate_insert:
     ,moved_at
     ,status
     ,created_by
+    ,api_name
     ) values (
     ?
     ,?
@@ -24,6 +25,7 @@ marknadsurval_cupdate_insert:
     ,?
     ,?
     ,'[user_id]'
+    ,?
     );
   params:
     -
@@ -56,6 +58,9 @@ marknadsurval_cupdate_insert:
     -
       type: varchar(255)
       value: rs:status
+    -
+      type: varchar(255)
+      value: rs:api_name
 db_marknadsurval_cupdate_select_by_pid:
   sql: |
     select
@@ -74,6 +79,7 @@ db_marknadsurval_cupdate_select_by_pid:
     ,created_by
     ,updated_by
     ,(datediff(now(),created_at)) as created_at_days
+    ,api_name
     from marknadsurval_cupdate
     where pid=? 
     and status='ok'
@@ -99,3 +105,4 @@ db_marknadsurval_cupdate_select_by_pid:
     - created_by
     - updated_by
     - created_at_days
+    - api_name

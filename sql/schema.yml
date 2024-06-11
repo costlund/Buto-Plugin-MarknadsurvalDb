@@ -26,6 +26,8 @@ tables:
         type: varchar(255)
       zip_updated_at:
         type: timestamp
+      api_name:
+        type: varchar(255)
 extra:
   _description: 'Extra field to add to each table if not exist in schema.'
   field:
