@@ -90,6 +90,7 @@ class PluginMarknadsurvalDb{
       $data = new PluginWfArray();
       $data->set('id', $marknadsurval_data->get('id'));
       $data->set('pid', $marknadsurval_data->get('pid'));
+      $data->set('pid_masked', substr($marknadsurval_data->get('pid'), 0, 8).'XXXX');
       $data->set('postalcode', $marknadsurval_data->get('zip'));
       $data->set('city', $marknadsurval_data->get('city'));
       $data->set('first_name', $marknadsurval_data->get('given_name'));

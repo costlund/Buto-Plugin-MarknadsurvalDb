@@ -1,5 +1,9 @@
-version: 1.5.0
+version: 1.6.0
 history:
+  1.6.0:
+    date: '2024-06-20'
+    title: 'Session param'
+    description: 'Add session param plugin/marknadsurval/db/user/pid_masked where pid is masked with four X at the end.'
   1.5.0:
     date: '2024-06-11'
     title: 'API name'
